@@ -9,6 +9,5 @@ namespace SportsStore.services
     {
         public GetProductsResponse GetProducts(GetProductsRequest request);
         public GetCategoriesResponse GetCategories(GetCategoriesRequest request);
-
     }
 }

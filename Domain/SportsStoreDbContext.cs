@@ -32,7 +32,7 @@ namespace SportsStore.Domain
             }
             for (int i = 1; i < 401; i++)
             {
-                images.Add(new ProductImage(i, rnd.Next(1, 100), "https://via.placeholder.com/150" ,true));
+                images.Add(new ProductImage(i, rnd.Next(1, 100), "https://via.placeholder.com/300" ,true));
             }
             modelBuilder.Entity<Product>().HasData(products);
             modelBuilder.Entity<Category>().HasData(categories);

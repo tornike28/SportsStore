@@ -4,6 +4,5 @@ namespace SportsStore.services
 {
     public class GetCategoriesResponse
     {
-        public List<string> categories { get; internal set; }
     }
 }
