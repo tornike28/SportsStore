@@ -1,0 +1,26 @@
+﻿@model SportsStore.Controllers.DetailViewModel
+@{
+    ViewData["Title"] = "Detail";
+}
+
+@{foreach (var item in Model.ProductsDetailResponse.ProductsDetails)
+    {
+        <h1 style="text-align:center">@item.Name</h1>
+        <h1></h1>
+        <h2>Price - @item.Price$</h2>
+        <h2>Description</h2>
+        <h5>@item.Description</h5>
+    }
+}
+
+@{foreach (var item in Model.PicturesResponse.Pictures)
+    {
+        <div class="d-inline-flex p-2">
+            <ul style="list-style-type:none">
+                <li><img width="250" ; height="250" src="@item.ImageUrls" alt="Alternate Text" /></li>
+            </ul>
+        </div>
+    }
+}
+
+

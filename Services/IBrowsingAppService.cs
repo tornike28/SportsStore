@@ -8,6 +8,8 @@ namespace SportsStore.services
     public interface IbrowsingAppservice
     {
         public GetProductsResponse GetProducts(GetProductsRequest request);
-        public GetCategoriesResponse GetCategories(GetCategoriesRequest request);
+        public GetPicturesResponse GetPictures(GetPicturesRequest request);
+        public GetProductsDetailsResponse GetPicturesDetails(GetProductsDetailsRequest request);
+        public GetOrderResponse GetOrders(GetOrderRequest request);
     }
 }

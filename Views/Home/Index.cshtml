@@ -1,4 +1,4 @@
-﻿@model SportsStore.services.GetProductsResponse
+﻿@model SportsStore.ViewModels.IndexViewModel
 @{
 
     ViewData["Title"] = "Home Page";
@@ -9,37 +9,44 @@
 </div>
 
 
-@{foreach (var item in Model.Products)
+@{foreach (var item in Model.ProductsResponse.Products)
     {
         <div class="d-inline-flex p-2">
             <div class="row">
                 <ul style="list-style-type: none;font-size:large" class="list-group-flush">
                     <li>
-                        <img src="@item.ThumbnailUrl" />
+                        <img width="300" ; height="300" src="@item.ThumbnailUrl" />
                     </li>
-                    <a style="color:black" href="">@item.Name Price- @item.Price$</a>
+                    <a style="color:black" asp-area="" asp-controller="Home" asp-action="Detail" asp-route-ProductId="@item.ProductId">@item.Name Price- @item.Price$</a>
+                    <form asp-controller="Home" asp-action="AddTocart">
+                        <input type="hidden"  value="@item.ProductId"/>
+                        <button type="submit" class="btn-success">
+                                <i class="glyphicon glyphicon-Cart" aria-hidden="true"></i>Add To Cart
+                        </button>
+                    </form>
                 </ul>
             </div>
         </div>
     }
 }
-<body style="background-color:burlywood">
+<body style="background-color:white">
 </body>
 
 <nav aria-label="Page navigation example">
     <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="https://localhost:44380/@ViewBag.message/@ViewBag.previousPage">Previous</a></li>
+        <li style="padding:2px;margin:2px" class="page-item"><a class="page-link"  asp-area="" asp-controller="Home" asp-route-categoryName="@Model.CategoryName" asp-route-page="@Model.PreviousPage">Previous</a></li>
 
-        @{for (int i = 1; i <= Model.TotalPages; i++)
+        @{for (int i = 1; i <= Model.ProductsResponse.TotalPages; i++)
             {
                 <div class="f">
-                    <ul id="paging" style="list-style-type: none;">
-                        <li class="page-item"><a class="page-link" href="https://localhost:44380/@ViewBag.message/@i">@i</a></li>
-
+                    <ul style="list-style-type:none;padding:2px;margin:2px">
+                        <li class="page-item">
+                            <a class="page-link" asp-area="" asp-controller="Home" asp-route-categoryName="@Model.CategoryName" asp-route-page="@i" asp-action="Index">@i</a>
+                        </li>
                     </ul>
                 </div>
             }
         }
-        <li class="page-item"><a class="page-link" tabindex="-1" href="https://localhost:44380/@ViewBag.message/@ViewBag.nextPage">Next</a></li>
+        <li style="padding:2px;margin:2px" class="page-item"><a class="page-link" tabindex="-1"  asp-area="" asp-controller="Home" asp-route-categoryName="@Model.CategoryName" asp-route-page="@Model.NextPage">Next</a></li>
     </ul>
 </nav>

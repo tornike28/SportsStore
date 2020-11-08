@@ -11,10 +11,8 @@ namespace SportsStore.services
             public decimal Price { get; set; }
             public string ThumbnailUrl { get; set; }
             public int TotalPages { get; set; }
-
         }
         public List<product> Products { get; set; }
         public int TotalPages { get; set; }
-        public string Mm { get; internal set; }
     }
 }

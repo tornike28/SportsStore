@@ -13,10 +13,10 @@ namespace SportsStore.Domain
         public string ImageUrl { get; set; }
         public bool IsThumbnail { get; set; }
         public ProductImage(
-                       int productImageId,
-                       int productID,
-                       string imageUrl,
-                       bool isThumbnail)
+                      int productImageId,
+                      int productID,
+                      string imageUrl,
+                      bool isThumbnail)
         {
             ProductImageId = productImageId;
             ProductID = productID;

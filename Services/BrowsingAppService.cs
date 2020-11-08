@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using SportsStore.Domain;
+using System;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -13,17 +14,60 @@ namespace SportsStore.services
         {
             _DbContext = dbContext;
         }
-        public GetCategoriesResponse GetCategories(GetCategoriesRequest request)
+
+        public GetOrderResponse GetOrders(GetOrderRequest request)
         {
-            throw new System.NotImplementedException();
+            _DbContext.ShoppingCarts.Add(new ShoppingCart
+            {
+                ProductId = request.ProductId,
+                OrderRegistrationDate = DateTime.Now
+            });
+            _DbContext.SaveChanges();
+            return new GetOrderResponse
+            {
+                NumberOfRecords = _DbContext.ShoppingCarts.Count()
+            };
         }
+
+        public GetPicturesResponse GetPictures(GetPicturesRequest request)
+        {
+            var resultPictures = _DbContext.ProductImages
+                          .Where(s => s.ProductID == request.ProductId)
+                          .Select(s => new GetPicturesResponse
+                          {
+                              ProductId = s.ProductID,
+                              ImageUrls = s.ImageUrl
+                          });
+            return new GetPicturesResponse
+            {
+                Pictures = resultPictures.ToList()
+            };
+        }
+
+        public GetProductsDetailsResponse GetPicturesDetails(GetProductsDetailsRequest request)
+        {
+            var resultProductsDetails = _DbContext.Product
+                .Where(s => s.ProductId == request.ProductId)
+                .Select(s => new GetProductsDetailsResponse.ProductDetails
+                {
+                    Description = s.Description,
+                    ProductId = s.ProductId,
+                    Name = s.ProductName,
+                    Price = s.Price,
+                });
+            return new GetProductsDetailsResponse
+            {
+                ProductsDetails = resultProductsDetails.ToList()
+            };
+        }
+
         public GetProductsResponse GetProducts(GetProductsRequest request)
         {
             if (request.CategoryName != "AllProducts")
             {
                 var filteredProductDb = _DbContext.Product
                 .Where(s => s.CategoryName == request.CategoryName || request.CategoryName == null);
-                var totalPages = filteredProductDb.Count() / request.PageSize;
+                int totalPages = filteredProductDb.Count() % request.PageSize > 0 ? filteredProductDb.Count() / request.PageSize + 1 : filteredProductDb.Count() / request.PageSize;
                 var result = filteredProductDb
                     .Skip((request.PageSize * (request.Page - 1)))
                     .Take(request.PageSize)
@@ -32,7 +76,7 @@ namespace SportsStore.services
                         Name = s.ProductName,
                         Price = s.Price,
                         ProductId = s.ProductId,
-                        ThumbnailUrl = s.ImageS.SingleOrDefault(p => p.IsThumbnail).ImageUrl
+                        ThumbnailUrl = s.ImageS.SingleOrDefault(p => p.IsThumbnail).ImageUrl,
                     });
                 return new GetProductsResponse
                 {
@@ -52,7 +96,7 @@ namespace SportsStore.services
                         Name = s.ProductName,
                         Price = s.Price,
                         ProductId = s.ProductId,
-                        ThumbnailUrl = s.ImageS.SingleOrDefault(p => p.IsThumbnail).ImageUrl
+                        ThumbnailUrl = s.ImageS.SingleOrDefault(p => p.IsThumbnail).ImageUrl,
                     });
                 return new GetProductsResponse
                 {
