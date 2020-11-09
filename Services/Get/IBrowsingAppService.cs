@@ -10,6 +10,5 @@ namespace SportsStore.services
         public GetProductsResponse GetProducts(GetProductsRequest request);
         public GetPicturesResponse GetPictures(GetPicturesRequest request);
         public GetProductsDetailsResponse GetPicturesDetails(GetProductsDetailsRequest request);
-        public GetOrderResponse GetOrders(GetOrderRequest request);
     }
 }

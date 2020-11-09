@@ -34,7 +34,7 @@ namespace SportsStore.Domain
                 products.Add(new Product(i, ("product " + i), (i + 100 + 30 * i), ("Reinvigorate your stride with the Nike Air Zoom Pegasus 37. Delivering the same fit and feel that runners love, the shoe has an all-new forefoot cushioning unit and foam for maximum responsiveness. The result is a durable, lightweight trainer designed for everyday running. " + i), categoryNames[index],index+1));
             }
             for (int i = 1; i < 402; i++)
-            {images.Add(new ProductImage(i, rnd.Next(1, 100), "https://via.placeholder.com/300" ,true));
+            {images.Add(new ProductImage(i, rnd.Next(1, 100),true));
             }
             modelBuilder.Entity<Product>().HasData(products);
             modelBuilder.Entity<Category>().HasData(categories);

@@ -1,0 +1,39 @@
+﻿@model SportsStore.ViewComponents.CategoriesAndShoppingCart
+@{
+    ViewData["Title"] = "Default";
+}
+
+
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-xl-3 rounded-top">
+        <div class="d-inline-flex p-2" style="list-style-type:none">
+            <div class="container">
+                @{
+                    foreach (var item in Model.Category)
+                    {
+                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-route-categoryName="@item.CategoryName" asp-action="Index">@item.CategoryName</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    }
+                }
+                <div class="navbar-dark collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <a  asp-area="" asp-controller="Home" asp-action="InsideCart">
+            <i style="color: black;
+        font-size: 40px" class="glyphicon glyphicon-shopping-cart"><span style="color:green; font-size:20px">@Model.NumberOfRecords</span></i>
+        </a>
+       
+
+    </nav>
+</header>

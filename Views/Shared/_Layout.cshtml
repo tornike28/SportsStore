@@ -6,37 +6,18 @@
     <title>@ViewData["Title"] - SportsStore</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <meta http-equiv="content-type" content="text/html" charset="utf-8" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 </head>
 <body>
-    @*@Component.InvokeAsync("CategoryView")*@
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-route-categoryName="AllProducts" asp-action="Index">AllProducts</a>
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-route-categoryName="Football" asp-action="Index">Football</a>
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-route-categoryName="Basketball" asp-action="Index">Basketball</a>
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-route-categoryName="LifeStyle" asp-action="Index">LifeStyle</a>
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-route-categoryName="baseball" asp-action="Index">baseball</a>
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-route-categoryName="Running" asp-action="Index">Running</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-dark collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+    
+    @await Component.InvokeAsync("CategoriesAndShoppingCart")
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

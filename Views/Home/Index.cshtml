@@ -3,11 +3,14 @@
 
     ViewData["Title"] = "Home Page";
 }
-
-<div class="text-center">
-    <h1 class="display-4" style="color:black">Welcome</h1>
-</div>
-
+@{ if (Model.CategoryName == "AllProducts" && Model.NextPage == 2)
+    {
+        <div class="text-center">
+            <img style="height:400px;width:1200px" src="https://sportshub.cbsistatic.com/i/r/2020/09/18/e296bc55-abd5-4dbe-9c9c-c089778d8745/thumbnail/1200x675/472cb3487c3e55c4500c802ca41fa6eb/lebron18.jpg" alt="Alternate Text" />
+            <h2 style="text-align:left">New Collection</h2>
+        </div>
+    }
+}
 
 @{foreach (var item in Model.ProductsResponse.Products)
     {
@@ -17,11 +20,13 @@
                     <li>
                         <img width="300" ; height="300" src="@item.ThumbnailUrl" />
                     </li>
-                    <a style="color:black" asp-area="" asp-controller="Home" asp-action="Detail" asp-route-ProductId="@item.ProductId">@item.Name Price- @item.Price$</a>
-                    <form asp-controller="Home" asp-action="AddTocart">
-                        <input type="hidden"  value="@item.ProductId"/>
+                    <li>
+                        <a style="color:black" asp-area="" asp-controller="Home" asp-action="Detail" asp-route-ProductId="@item.ProductId">@item.Name-@item.Price$</a>
+                    </li>
+                    <form asp-controller="Home" asp-action="AddTocart" method="post">
+                        <input type="hidden" value="@item.ProductId" name="ProductId"/>
                         <button type="submit" class="btn-success">
-                                <i class="glyphicon glyphicon-Cart" aria-hidden="true"></i>Add To Cart
+                            <i style="word-spacing:normal" class="glyphicon glyphicon-shopping-cart"></i>Add To Cart
                         </button>
                     </form>
                 </ul>
@@ -31,22 +36,20 @@
 }
 <body style="background-color:white">
 </body>
-
 <nav aria-label="Page navigation example">
     <ul class="pagination">
-        <li style="padding:2px;margin:2px" class="page-item"><a class="page-link"  asp-area="" asp-controller="Home" asp-route-categoryName="@Model.CategoryName" asp-route-page="@Model.PreviousPage">Previous</a></li>
 
-        @{for (int i = 1; i <= Model.ProductsResponse.TotalPages; i++)
-            {
-                <div class="f">
-                    <ul style="list-style-type:none;padding:2px;margin:2px">
-                        <li class="page-item">
-                            <a class="page-link" asp-area="" asp-controller="Home" asp-route-categoryName="@Model.CategoryName" asp-route-page="@i" asp-action="Index">@i</a>
-                        </li>
-                    </ul>
-                </div>
-            }
+        @if (Model.PreviousPage > 0)
+        {
+            <li class="page-item"><a class="page-link" asp-area="" asp-controller="Home" asp-route-categoryName="@Model.CategoryName" asp-route-page="@Model.PreviousPage">Previous</a></li>
         }
-        <li style="padding:2px;margin:2px" class="page-item"><a class="page-link" tabindex="-1"  asp-area="" asp-controller="Home" asp-route-categoryName="@Model.CategoryName" asp-route-page="@Model.NextPage">Next</a></li>
+            @{for (int i = 1; i <= Model.ProductsResponse.TotalPages; i++)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-area="" asp-controller="Home" asp-route-categoryName="@Model.CategoryName" asp-route-page="@i" asp-action="Index">@i</a>
+                    </li>
+                }
+            }
+        <li class="page-item"><a class="page-link" tabindex="-1" asp-area="" asp-controller="Home" asp-route-categoryName="@Model.CategoryName" asp-route-page="@Model.NextPage">Next</a></li>
     </ul>
 </nav>

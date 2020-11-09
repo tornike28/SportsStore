@@ -15,12 +15,10 @@ namespace SportsStore.Domain
         public ProductImage(
                       int productImageId,
                       int productID,
-                      string imageUrl,
                       bool isThumbnail)
         {
             ProductImageId = productImageId;
             ProductID = productID;
-            ImageUrl = imageUrl;
             IsThumbnail = isThumbnail;
         }
     }

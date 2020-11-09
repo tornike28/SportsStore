@@ -14,21 +14,6 @@ namespace SportsStore.services
         {
             _DbContext = dbContext;
         }
-
-        public GetOrderResponse GetOrders(GetOrderRequest request)
-        {
-            _DbContext.ShoppingCarts.Add(new ShoppingCart
-            {
-                ProductId = request.ProductId,
-                OrderRegistrationDate = DateTime.Now
-            });
-            _DbContext.SaveChanges();
-            return new GetOrderResponse
-            {
-                NumberOfRecords = _DbContext.ShoppingCarts.Count()
-            };
-        }
-
         public GetPicturesResponse GetPictures(GetPicturesRequest request)
         {
             var resultPictures = _DbContext.ProductImages
@@ -43,7 +28,6 @@ namespace SportsStore.services
                 Pictures = resultPictures.ToList()
             };
         }
-
         public GetProductsDetailsResponse GetPicturesDetails(GetProductsDetailsRequest request)
         {
             var resultProductsDetails = _DbContext.Product

@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using SportsStore.Domain;
 using SportsStore.Models;
 using SportsStore.services;
+using SportsStore.Services;
 using SportsStore.ViewModels;
 
 namespace SportsStore.Controllers
@@ -16,9 +17,11 @@ namespace SportsStore.Controllers
     public class HomeController : Controller
     {
         IbrowsingAppservice _BrowsingAppService;
-        public HomeController(IbrowsingAppservice browsingAppService)
+        ICheckOutAppService _CheckOutAppService;
+        public HomeController(IbrowsingAppservice browsingAppService,ICheckOutAppService checkOutAppService)
         {
             _BrowsingAppService = browsingAppService;
+            _CheckOutAppService = checkOutAppService;
         }
         public IActionResult Index(string categoryName, int page = 1)
         {
@@ -50,24 +53,28 @@ namespace SportsStore.Controllers
                 ProductsDetailResponse = _BrowsingAppService.GetPicturesDetails(new services.GetProductsDetailsRequest
                 {
                     ProductId = productId
-
                 })
             };
             return View(ViewModel);
         }
+        [HttpPost]
         public IActionResult AddTocart(int productId)
         {
-            var viewModel= _BrowsingAppService.GetOrders(new services.GetOrderRequest
+            var viewModel = _CheckOutAppService.AddToCart(new Services.AddToCartRequest
             {
                 ProductId = productId
             });
-            return View(viewModel);
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public IActionResult InsideCart()
+        {
+            return View();
         }
     }
 }

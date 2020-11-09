@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SportsStore.Domain;
 using SportsStore.services;
+using SportsStore.Services;
 
 namespace SportsStore
 {
@@ -27,6 +28,7 @@ namespace SportsStore
         {
             services.AddControllersWithViews();
             services.AddScoped<IbrowsingAppservice, BrowsingAppService>();
+            services.AddScoped<ICheckOutAppService, CheckOutAppService>();
             services.AddDbContext<SportsStoreDbContext>();
         }
 
