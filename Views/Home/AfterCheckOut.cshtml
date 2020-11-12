@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewData["Title"] = "AfterCheckOut";
+}
+
+<h1 style="text-align:center">The order was successfully completed</h1>
+<h3 style="text-align:center">Thank You!</h3>
+@*<img src="https://smarter.ge/packs/media/images/delivery-f88d19bd508ac03a8dbf71a4e965b731.png" />
+<p class="aligncenterRigth">
+    Shortly after you've completed your order, you'll receive an order confirmation email containing your order number. You can always track the status of your order in your account under Orders & Returns.
+    We'll also send you an email as soon as your order has been shipped. This email contains a tracking link so that you can track your order through each step of the delivery process.
+</p>
+<style>
+    .aligncenterRigth {
+        text-align: right
+    }
+</style>*@
+<div class="row">
+    <div class="column">
+        <img src="https://smarter.ge/packs/media/images/delivery-f88d19bd508ac03a8dbf71a4e965b731.png" alt="Forest" style="width:100%">
+    </div>
+    <div class="column">
+        <p class="aligncenterRigth">
+            Shortly after you've completed your order, you'll receive an order confirmation email containing your order number. You can always track the status of your order in your account under Orders & Returns.
+            We'll also send you an email as soon as your order has been shipped. This email contains a tracking link so that you can track your order through each step of the delivery process.
+            Shortly after you've completed your order, you'll receive an order confirmation email containing your order number. You can always track the status of your order in your account under Orders & Returns.
+            We'll also send you an email as soon as your order has been shipped. This email contains a tracking link so that you can track your order through each step of the delivery process.
+            We'll also send you an email as soon as your order has been shipped. This email contains a tracking link so that you can track your order through each step of the delivery process.
+            <h1 hidden></h1>
+            <h1 hidden></h1>
+            <h1 hidden></h1>
+
+            <a asp-action="Index"><button style="tab-size:8" type="button" class="btn btn-primary">Add new order</button></a>
+        </p>
+    </div>
+</div>
+<style>
+    .column {
+        float: left;
+        width: 45%;
+        padding: 8px;
+    }
+    .row::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+</style>

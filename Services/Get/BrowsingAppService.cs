@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.IdentityModel.Protocols;
 using SportsStore.Domain;
 using System;
+using System.Configuration;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -14,9 +18,50 @@ namespace SportsStore.services
         {
             _DbContext = dbContext;
         }
+
+        public GetCartInfoResponse GetCartInfo()
+        {
+            var list = _DbContext.ShoppingCarts;
+            var result = from a in list.ToList()
+                         join b in _DbContext.Product
+                         on a.ProductId equals b.ProductId
+                         select new GetCartInfoResponse
+                         {
+                             Id = a.Id,
+                             OrderRegistrationDate = a.OrderRegistrationDate,
+                             ProductName = b.ProductName,
+                             price = b.Price,
+                             ProductId = b.ProductId,
+                         };
+            return new GetCartInfoResponse
+            {
+                CartInfo = result,
+                TotalPrice = result.Select(s => s.price).Sum()
+        };
+            
+        }
+
+        public GetCartOrdersResponse GetCartOrders()
+        {
+            var shoppingCarts = _DbContext.ShoppingCarts.Select(s => s.ProductId);
+            return new GetCartOrdersResponse
+            {
+                ProductId = shoppingCarts
+            };
+        }
+        
+        public GetCategoriesResponse GetCategories()
+        {
+            var categories = _DbContext.Category.Select(S => S.CategoryName);
+            return new GetCategoriesResponse
+            {
+                CategoriesName = categories
+            };
+        }
+
         public GetPicturesResponse GetPictures(GetPicturesRequest request)
         {
-            var resultPictures = _DbContext.ProductImages
+            var pictures = _DbContext.ProductImages
                           .Where(s => s.ProductID == request.ProductId)
                           .Select(s => new GetPicturesResponse
                           {
@@ -25,12 +70,13 @@ namespace SportsStore.services
                           });
             return new GetPicturesResponse
             {
-                Pictures = resultPictures.ToList()
+                Pictures = pictures.ToList()
             };
         }
+
         public GetProductsDetailsResponse GetPicturesDetails(GetProductsDetailsRequest request)
         {
-            var resultProductsDetails = _DbContext.Product
+            var productsDetails = _DbContext.Product
                 .Where(s => s.ProductId == request.ProductId)
                 .Select(s => new GetProductsDetailsResponse.ProductDetails
                 {
@@ -41,7 +87,7 @@ namespace SportsStore.services
                 });
             return new GetProductsDetailsResponse
             {
-                ProductsDetails = resultProductsDetails.ToList()
+                ProductsDetails = productsDetails.ToList()
             };
         }
 

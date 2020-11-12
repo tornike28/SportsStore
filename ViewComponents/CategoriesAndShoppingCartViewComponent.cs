@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SportsStore.Domain;
 using SportsStore.services;
+using SportsStore.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,28 +13,23 @@ namespace SportsStore.ViewComponents
 {
     public class CategoriesAndShoppingCartViewComponent : ViewComponent
     {
-        private SportsStoreDbContext _dbcontex;
-        public CategoriesAndShoppingCartViewComponent(SportsStoreDbContext dbContext)
+        private IbrowsingAppservice _AppService;
+        public CategoriesAndShoppingCartViewComponent(IbrowsingAppservice appservice)
         {
-            _dbcontex = dbContext;
+            _AppService = appservice;
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-           
-            var listofCategories = await _dbcontex.Category.ToListAsync();
-            var listofShoppingCarts = await _dbcontex.ShoppingCarts.ToListAsync();
+            var listofCategories = await _AppService.GetCategories().CategoriesName.ToListAsync();
+            var listofShoppingCarts = await _AppService.GetCartOrders().ProductId.ToListAsync();
             var numberofrecords = listofShoppingCarts.Count();
-            var ViewModel = new CategoriesAndShoppingCart
+            var viewModel = new CategoriesAndShoppingCart
             {
                 Category = listofCategories,
                 NumberOfRecords = numberofrecords
             };
-            return View(ViewModel);
+            return View(viewModel);
         }
     }
-    public class CategoriesAndShoppingCart
-    {
-        public List<Category> Category { get; set; }
-        public int NumberOfRecords { get; set; }
-    }
+
 }

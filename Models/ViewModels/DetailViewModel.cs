@@ -6,6 +6,5 @@ namespace SportsStore.Controllers
     {
         public GetPicturesResponse PicturesResponse { get; set; }
         public GetProductsDetailsResponse ProductsDetailResponse { get; set; }
-
     }
 }

@@ -2,10 +2,6 @@
 @{
     ViewData["Title"] = "Default";
 }
-
-
-
-
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
@@ -16,7 +12,7 @@
                 @{
                     foreach (var item in Model.Category)
                     {
-                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-route-categoryName="@item.CategoryName" asp-action="Index">@item.CategoryName</a>
+                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-route-categoryName="@item" asp-action="Index">@item</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                                 aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
@@ -29,11 +25,13 @@
                 </div>
             </div>
         </div>
-        <a  asp-area="" asp-controller="Home" asp-action="InsideCart">
+        <a asp-area="" asp-controller="Home" asp-action="InsideCart">
             <i style="color: black;
         font-size: 40px" class="glyphicon glyphicon-shopping-cart"><span style="color:green; font-size:20px">@Model.NumberOfRecords</span></i>
-        </a>
-       
-
-    </nav>
+    </a>
+    <div style="margin-left:35px">
+        <a asp-area="" asp-controller="Home" asp-action="InsideCart"><button type="button" class="btn btn-primary">Sign in</button></a>
+    </div>
 </header>
+
+

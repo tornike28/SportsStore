@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="linq2db" Version="3.1.6" />
     <PackageReference Include="Microsoft.entityframeworkcore" Version="3.1.9" />
     <PackageReference Include="microsoft.entityframeworkcore.sqlserver" Version="3.1.9" />
     <PackageReference Include="microsoft.entityframeworkcore.tools" Version="3.1.9">
@@ -12,6 +13,11 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\User\" />
   </ItemGroup>
 
 </Project>

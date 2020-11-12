@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using SportsStore.Domain;
 using SportsStore.services;
 using SportsStore.Services;
+using SportsStore.Services.Delete;
 
 namespace SportsStore
 {
@@ -29,6 +30,7 @@ namespace SportsStore
             services.AddControllersWithViews();
             services.AddScoped<IbrowsingAppservice, BrowsingAppService>();
             services.AddScoped<ICheckOutAppService, CheckOutAppService>();
+            services.AddScoped<IDeleteAppService, DeleteAppService>();
             services.AddDbContext<SportsStoreDbContext>();
         }
 
@@ -58,7 +60,6 @@ namespace SportsStore
                     name: "default",
                     pattern: "{categoryName=AllProducts}/{page=1}/{productId=1}",
                     defaults : new {controller = "Home", Action="Index"});
-
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
