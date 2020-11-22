@@ -15,11 +15,11 @@ namespace SportsStore.Services.Delete
         }
         public DeleteTableDataResponse DeleteTableData()
         {
-            foreach (var item in _DbContext.ShoppingCarts)
+            foreach (var item in _DbContext.ShoppingCarts.ToList())
             {
                 _DbContext.ShoppingCarts.Remove(item);
-                _DbContext.SaveChanges();
             }
+            _DbContext.SaveChanges();
             return new DeleteTableDataResponse { };
         }
     }

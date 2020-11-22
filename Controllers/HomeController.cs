@@ -7,6 +7,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -32,13 +33,14 @@ namespace SportsStore.Controllers
             _CheckOutAppService = checkOutAppService;
             _DeleteAppService = deleteAppService;
         }
-        public IActionResult Index(string categoryName, int page = 1)
+        public IActionResult Index(string categoryName, int page = 1, string search = "")
         {
             var getProductsRespone = _BrowsingAppService.GetProducts(new services.GetProductsRequest
             {
                 CategoryName = categoryName,
                 Page = page,
-                PageSize = 12
+                PageSize = 12,
+                Searched = search
             });
             var ViewModel = new IndexViewModel
             {
@@ -89,7 +91,7 @@ namespace SportsStore.Controllers
             return View(viewModel);
         }
         [HttpGet]
-        public IActionResult CheckOut( )
+        public IActionResult CheckOut()
         {
             return View();
         }
@@ -102,7 +104,7 @@ namespace SportsStore.Controllers
             }
             return View();
         }
-        public IActionResult AfterCheckOut() 
+        public IActionResult AfterCheckOut()
         {
             return View();
         }

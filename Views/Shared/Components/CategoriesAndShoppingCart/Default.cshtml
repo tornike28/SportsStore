@@ -9,6 +9,11 @@
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-xl-3 rounded-top">
         <div class="d-inline-flex p-2" style="list-style-type:none">
             <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-route-categoryName="AllProducts" asp-action="Index">AllProducts</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
                 @{
                     foreach (var item in Model.Category)
                     {
@@ -26,12 +31,16 @@
             </div>
         </div>
         <a asp-area="" asp-controller="Home" asp-action="InsideCart">
-            <i style="color: black;
-        font-size: 40px" class="glyphicon glyphicon-shopping-cart"><span style="color:green; font-size:20px">@Model.NumberOfRecords</span></i>
+            <i style="color:rgb(51,122,183);
+        font-size: 40px" class="glyphicon glyphicon-shopping-cart"><b style="color:black;font-style:oblique; font-size:20px">@Model.NumberOfRecords</b></i>
     </a>
-    <div style="margin-left:35px">
-        <a asp-area="" asp-controller="Home" asp-action="InsideCart"><button type="button" class="btn btn-primary">Sign in</button></a>
-    </div>
+
+    <partial name="_PartialView" />
+
+    @*<div style="margin-left:35px">
+            <a asp-area="" asp-controller="Home" asp-action="InsideCart"><button type="button" class="btn btn-success">Sign in</button></a>
+        </div>*@
+</nav>
 </header>
 
 

@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Protocols;
 using SportsStore.Domain;
 using System;
 using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -21,8 +22,7 @@ namespace SportsStore.services
 
         public GetCartInfoResponse GetCartInfo()
         {
-            var list = _DbContext.ShoppingCarts;
-            var result = from a in list.ToList()
+            var result = from a in _DbContext.ShoppingCarts
                          join b in _DbContext.Product
                          on a.ProductId equals b.ProductId
                          select new GetCartInfoResponse
@@ -33,12 +33,21 @@ namespace SportsStore.services
                              price = b.Price,
                              ProductId = b.ProductId,
                          };
+            var result2 = result.GroupBy(s => new { s.ProductId, s.ProductName, s.price }).Select(s => new DataTableClass
+            {
+                ProductId = s.Key.ProductId,
+                Count = s.Count(),
+                ProductName = s.Key.ProductName,
+                Price = s.Key.price,
+                TotalPrice = s.Key.price * s.Count()
+
+            });
             return new GetCartInfoResponse
             {
-                CartInfo = result,
-                TotalPrice = result.Select(s => s.price).Sum()
-        };
-            
+                CartInfo = result2,
+                TotalPriceOfCart = result.Select(s => s.price).Sum(),
+            };
+
         }
 
         public GetCartOrdersResponse GetCartOrders()
@@ -49,7 +58,7 @@ namespace SportsStore.services
                 ProductId = shoppingCarts
             };
         }
-        
+
         public GetCategoriesResponse GetCategories()
         {
             var categories = _DbContext.Category.Select(S => S.CategoryName);
@@ -93,11 +102,51 @@ namespace SportsStore.services
 
         public GetProductsResponse GetProducts(GetProductsRequest request)
         {
-            if (request.CategoryName != "AllProducts")
+            if (request.CategoryName != "AllProducts" && request.Searched == "")
             {
                 var filteredProductDb = _DbContext.Product
-                .Where(s => s.CategoryName == request.CategoryName || request.CategoryName == null);
+                .Where(s => (s.CategoryName == request.CategoryName || request.CategoryName == null));
                 int totalPages = filteredProductDb.Count() % request.PageSize > 0 ? filteredProductDb.Count() / request.PageSize + 1 : filteredProductDb.Count() / request.PageSize;
+                var result = filteredProductDb
+                    .Skip((request.PageSize * (request.Page - 1)))
+                    .Take(request.PageSize)
+                    .Select(s => new GetProductsResponse.product
+                    {
+                        Name = s.ProductName,
+                        Price = s.Price,
+                        ProductId = s.ProductId,
+                        ThumbnailUrl = s.ImageS.SingleOrDefault(p => p.IsThumbnail).ImageUrl,
+                    });
+                return new GetProductsResponse
+                {
+                    TotalPages = totalPages,
+                    Products = result.ToList()
+                };
+            }
+            else if (request.CategoryName == "AllProducts" && request.Searched == "")
+            {
+                var filteredProductDb = _DbContext.Product;
+                var totalPages = filteredProductDb.Count() / request.PageSize;
+                var result = filteredProductDb
+                    .Skip((request.PageSize * (request.Page - 1)))
+                    .Take(request.PageSize)
+                    .Select(s => new GetProductsResponse.product
+                    {
+                        Name = s.ProductName,
+                        Price = s.Price,
+                        ProductId = s.ProductId,
+                        ThumbnailUrl = s.ImageS.SingleOrDefault(p => p.IsThumbnail).ImageUrl,
+                    });
+                return new GetProductsResponse
+                {
+                    TotalPages = totalPages,
+                    Products = result.ToList()
+                };
+            }
+            else if (request.CategoryName == "AllProducts" && request.Searched != "")
+            {
+                var filteredProductDb = _DbContext.Product.Where(s => s.ProductName.Contains(request.Searched));
+                var totalPages = filteredProductDb.Count() / request.PageSize;
                 var result = filteredProductDb
                     .Skip((request.PageSize * (request.Page - 1)))
                     .Take(request.PageSize)
@@ -116,8 +165,9 @@ namespace SportsStore.services
             }
             else
             {
-                var filteredProductDb = _DbContext.Product;
-                var totalPages = filteredProductDb.Count() / request.PageSize;
+                var filteredProductDb = _DbContext.Product
+               .Where(s => (s.CategoryName == request.CategoryName || request.CategoryName == null) && s.ProductName.Contains(request.Searched));
+                int totalPages = filteredProductDb.Count() % request.PageSize > 0 ? filteredProductDb.Count() / request.PageSize + 1 : filteredProductDb.Count() / request.PageSize;
                 var result = filteredProductDb
                     .Skip((request.PageSize * (request.Page - 1)))
                     .Take(request.PageSize)

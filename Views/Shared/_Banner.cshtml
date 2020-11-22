@@ -1,0 +1,80 @@
+﻿
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<header>
+    <div id="carouselExampleIndicators" class="carousel slide container-fluid" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active" style="background-image: url('https://www.cbronline.com/wp-content/uploads/2016/11/Black-Friday-1.jpg') ">
+                <form class="form-inline md-form mr-auto mb-4" asp-controller="Home" asp-action="Index" method="post">
+                    <div class="SearchInput"> <input style="width:320px" class="form-control" type="text" placeholder="Search" aria-label="Search" name="search">  </div>
+                    <div class="SearchButton"><button type="submit"><i class="fa fa-search"></i></button></div>
+                </form>
+                <div class="carousel-caption d-none d-md-block">
+                    <h3 class="display-4">Discover Your Style </h3>
+                    <p class="lead">Black Friday Deals</p>
+                </div>
+
+            </div>
+            <div class="carousel-item" style="background-image: url('https://wallpapercave.com/wp/8yX6YF2.jpg') ">
+                <form class="form-inline md-form mr-auto mb-4" asp-controller="Home" asp-action="Index" method="post">
+                    <div class="SearchInput"><input style="width:320px" class="form-control" type="text" placeholder="Search" aria-label="Search" name="search">  </div>
+                    <div class="SearchButton"><button type="submit"><i class="fa fa-search"></i></button></div>
+                </form>
+                <div class="carousel-caption d-none d-md-block">
+                    <h3 class="display-4">Discover Your Style</h3>
+                    <p class="lead">Hurry up supplies are limited</p>
+                </div>
+            </div>
+            <div class="carousel-item" style="background-image: url('https://i.pinimg.com/originals/f9/6b/ba/f96bbabe31e5c49d857c6394c9d42e2e.jpg')">
+                <form class="form-inline md-form mr-auto mb-4" asp-controller="Home" asp-action="Index" method="post">
+                    <div class="SearchInput"><input style="width:320px" class="form-control" type="text" placeholder="Search" aria-label="Search" name="search">  </div>
+                    <div class="SearchButton"><button type="submit"><i class="fa fa-search"></i></button></div>
+                </form>
+                <div class="carousel-caption d-none d-md-block">
+                    <h3 class="display-4">Discover Your Style</h3>
+                    <p class="lead">Where All Athlets Belongs</p>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</header>
+<section class="py-5">
+    <div class="container-fluid">
+        <h1 class="font-weight-light">Top Picks to Give & Get</h1>
+    </div>
+</section>
+<style>
+    .carousel-item {
+        height: 60vh;
+        min-height: 250px;
+        background: no-repeat center center scroll;
+        background-size: cover;
+    }
+    .SearchInput {
+        position: absolute;
+        left: 500px;
+        top: 200px;
+        width: 320px;
+        height: 240px;
+        height: 60%;
+    }
+    .SearchButton {
+        position: absolute;
+        left: 818px;
+        top: 199px;
+        font-size: 21px;
+        color: rgb(51,122,183);
+    }
+</style>
