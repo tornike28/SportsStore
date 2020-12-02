@@ -47,9 +47,7 @@ namespace SportsStore.services
                 CartInfo = result2,
                 TotalPriceOfCart = result.Select(s => s.price).Sum(),
             };
-
         }
-
         public GetCartOrdersResponse GetCartOrders()
         {
             var shoppingCarts = _DbContext.ShoppingCarts.Select(s => s.ProductId);
@@ -58,7 +56,6 @@ namespace SportsStore.services
                 ProductId = shoppingCarts
             };
         }
-
         public GetCategoriesResponse GetCategories()
         {
             var categories = _DbContext.Category.Select(S => S.CategoryName);
